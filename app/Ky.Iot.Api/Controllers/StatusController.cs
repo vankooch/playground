@@ -44,7 +44,7 @@
         [HttpGet("Disconnect")]
         public async Task<ActionResult<bool>> Disconnect(CancellationToken cancellationToken)
         {
-            _ = await this._mqttClient
+            await this._mqttClient
                 .DisconnectAsync(null, cancellationToken)
                 .ConfigureAwait(false);
 
