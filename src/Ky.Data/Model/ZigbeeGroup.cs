@@ -6,7 +6,7 @@
     {
         public ZigbeeGroup()
         {
-            this.Devices = new HashSet<Device>();
+            this.DeviceToZigbeeGroup = new HashSet<DeviceToZigbeeGroup>();
         }
 
         public int Id { get; set; }
@@ -15,7 +15,7 @@
 
         #region Relations
 
-        public virtual ICollection<Device> Devices { get; set; }
+        public virtual ICollection<DeviceToZigbeeGroup> DeviceToZigbeeGroup { get; set; }
 
         #endregion Relations
     }

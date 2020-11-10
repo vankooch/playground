@@ -1,4 +1,4 @@
-﻿namespace Ky.Data.Repositories
+﻿namespace Ky.Data.Interfaces.Repositories
 {
     using System.Collections.Generic;
     using System.Threading;
@@ -13,7 +13,7 @@
 
         Task<IReadOnlyList<Device>> GetAll(CancellationToken cancellationToken = default);
 
-        Task<IReadOnlyList<Device>> GetByid(string id, CancellationToken cancellationToken = default);
+        Task<Device> GetById(string id, CancellationToken cancellationToken = default);
 
         Task Update(Device device, CancellationToken cancellationToken = default);
 

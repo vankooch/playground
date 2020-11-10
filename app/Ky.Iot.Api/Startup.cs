@@ -2,9 +2,9 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Ky.Mqtt.Client;
     using Ky.Mqtt.Client.Extensions;
     using Ky.Mqtt.Client.Settings;
+    using Ky.Zigbee2Mqtt.MqttHandler;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;

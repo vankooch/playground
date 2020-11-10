@@ -1,7 +1,6 @@
-﻿namespace Ky.Mqtt.Client
+﻿namespace Ky.Zigbee2Mqtt.MqttHandler
 {
     using System.Threading.Tasks;
-    using Ky.Mqtt.Client.Zigbee2Mqtt;
     using MQTTnet;
     using MQTTnet.Client.Receiving;
 

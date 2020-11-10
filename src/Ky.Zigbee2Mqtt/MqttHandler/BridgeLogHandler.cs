@@ -1,4 +1,4 @@
-﻿namespace Ky.Mqtt.Client.Zigbee2Mqtt
+﻿namespace Ky.Zigbee2Mqtt.MqttHandler
 {
     using System.Text.Json;
     using System.Threading.Tasks;

@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
     using Ky.Mqtt.Client.Settings;
-    using Ky.Mqtt.Client.Zigbee2Mqtt;
+    using Ky.Zigbee2Mqtt.MqttHandler;
     using Microsoft.AspNetCore.Mvc;
     using MQTTnet;
     using MQTTnet.Client;

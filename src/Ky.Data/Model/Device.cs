@@ -1,10 +1,16 @@
 ﻿namespace Ky.Data.Model
 {
     using System;
+    using System.Collections.Generic;
     using Ky.Data.Enums;
 
     public class Device
     {
+        public Device()
+        {
+            this.DeviceToZigbeeGroup = new HashSet<DeviceToZigbeeGroup>();
+        }
+
         public string DateCode { get; set; } = string.Empty;
 
         public string? Description { get; set; }
@@ -38,5 +44,11 @@
         public string? Vendor { get; set; }
 
         public string ZigbeeType { get; set; } = string.Empty;
+
+        #region Relations
+
+        public virtual ICollection<DeviceToZigbeeGroup> DeviceToZigbeeGroup { get; set; }
+
+        #endregion Relations
     }
 }
