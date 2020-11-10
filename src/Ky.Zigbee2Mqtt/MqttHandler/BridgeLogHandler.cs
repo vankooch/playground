@@ -14,13 +14,13 @@
         {
             if (eventArgs == null || eventArgs.ApplicationMessage.Topic != TOPIC)
             {
-                return Task.Run(() => { });
+                return Task.CompletedTask;
             }
 
             var json = eventArgs.ApplicationMessage.ConvertPayloadToString();
             var model = JsonSerializer.Deserialize<MessageModel<DevicesModel>>(json);
 
-            return Task.Run(() => { });
+            return Task.CompletedTask;
         }
     }
 }

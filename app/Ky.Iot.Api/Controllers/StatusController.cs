@@ -32,11 +32,9 @@
         [HttpGet("Connect")]
         public async Task<ActionResult<MqttClientAuthenticateResult>> Connect(CancellationToken cancellationToken)
         {
-            var result = await this._mqttClient
+            return await this._mqttClient
                 .ConnectAsync(this._mqttClientSettings.GetMqttClientOptions(), cancellationToken)
                 .ConfigureAwait(false);
-
-            return result;
         }
 
         /// <summary>
@@ -46,7 +44,7 @@
         [HttpGet("Disconnect")]
         public async Task<ActionResult<bool>> Disconnect(CancellationToken cancellationToken)
         {
-            await this._mqttClient
+            _ = await this._mqttClient
                 .DisconnectAsync(null, cancellationToken)
                 .ConfigureAwait(false);
 
