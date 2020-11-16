@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,5 +22,6 @@
     <ProjectReference Include="..\Ky.Data.Context\Ky.Data.Context.csproj" />
     <ProjectReference Include="..\Ky.Data.Interfaces\Ky.Data.Interfaces.csproj" />
     <ProjectReference Include="..\Ky.Data\Ky.Data.csproj" />
+    <ProjectReference Include="..\Ky.Zigbee2Mqtt\Ky.Zigbee2Mqtt.csproj" />
   </ItemGroup>
 </Project>

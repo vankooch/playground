@@ -11,11 +11,13 @@
 
         Task DeleteById(string deviceId, CancellationToken cancellationToken = default);
 
-        Task<IReadOnlyList<Device>> GetAll(CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<Device>> FindAll(CancellationToken cancellationToken = default);
 
-        Task<Device> GetById(string id, CancellationToken cancellationToken = default);
+        Task<Device?> FindById(string id, CancellationToken cancellationToken = default);
 
-        Task Update(Device device, CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<Device>> FindById(IReadOnlyList<string> id, CancellationToken cancellationToken = default);
+
+        Task<Device> Update(Device device, CancellationToken cancellationToken = default);
 
         Task Update(IReadOnlyList<Device> devices, CancellationToken cancellationToken = default);
     }

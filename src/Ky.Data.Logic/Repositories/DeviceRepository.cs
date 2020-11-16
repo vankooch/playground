@@ -1,11 +1,14 @@
 ﻿namespace Ky.Data.Repositories
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Ky.Data.Context;
     using Ky.Data.Interfaces.Repositories;
     using Ky.Data.Model;
+    using Microsoft.EntityFrameworkCore;
 
     public class DeviceRepository : IDeviceRepository
     {
@@ -16,29 +19,113 @@
             this._dataContext = dataContext;
         }
 
-        public Task DeleteById(IReadOnlyList<string> deviceIds, CancellationToken cancellationToken = default)
+        public async Task DeleteById(IReadOnlyList<string> deviceIds, CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            if (deviceIds == null || !deviceIds.Any())
+            {
+                return;
+            }
+
+            var local = deviceIds.Where(e => !string.IsNullOrWhiteSpace(e));
+            var entry = await this._dataContext
+                .Devices
+                .Where(e => local.Contains(e.Id))
+                .ToArrayAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            this._dataContext.Devices.RemoveRange(entry);
+            await this._dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            return;
         }
 
-        public Task DeleteById(string deviceId, CancellationToken cancellationToken = default)
+        public async Task DeleteById(string deviceId, CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrWhiteSpace(deviceId))
+            {
+                return;
+            }
+
+            var entry = await this._dataContext
+                .Devices
+                .FirstAsync(e => e.Id == deviceId, cancellationToken)
+                .ConfigureAwait(false);
+
+            this._dataContext.Devices.Remove(entry);
+            await this._dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            return;
         }
 
-        public Task<IReadOnlyList<Device>> GetAll(CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<Device>> FindAll(CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            var db = await this._dataContext
+                .Devices
+                .ToArrayAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            return db;
         }
 
-        public Task<Device> GetById(string id, CancellationToken cancellationToken = default)
+        public async Task<Device?> FindById(string id, CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return null;
+            }
+
+            var entry = await this._dataContext
+                .Devices
+                .FirstAsync(e => e.Id == id, cancellationToken)
+                .ConfigureAwait(false);
+
+            return entry;
         }
 
-        public Task Update(Device device, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<Device>> FindById(IReadOnlyList<string> id, CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            if (id == null || !id.Any())
+            {
+                return Array.Empty<Device>();
+            }
+
+            var local = id.Where(e => !string.IsNullOrWhiteSpace(e));
+            var entry = await this._dataContext
+                .Devices
+                .Where(e => local.Contains(e.Id))
+                .ToArrayAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            return entry;
+        }
+
+        public async Task<Device> Update(Device device, CancellationToken cancellationToken = default)
+        {
+            if (device == null)
+            {
+                throw new ArgumentException(nameof(device));
+            }
+
+            var entry = await this._dataContext
+                .Devices
+                .FirstAsync(e => e.Id == device.Id, cancellationToken)
+                .ConfigureAwait(false);
+
+            if (entry == null)
+            {
+                _ = await this._dataContext
+                    .Devices
+                    .AddAsync(device, cancellationToken)
+                    .ConfigureAwait(false);
+            }
+            else
+            {
+                // Do Update
+            }
+
+            await this._dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            return device;
         }
 
         public Task Update(IReadOnlyList<Device> devices, CancellationToken cancellationToken = default)

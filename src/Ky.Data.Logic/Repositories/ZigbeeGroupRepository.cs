@@ -21,17 +21,17 @@
             throw new System.NotImplementedException();
         }
 
-        public Task<ZigbeeGroup> GetById(int id, CancellationToken cancellationToken = default)
+        public Task<ZigbeeGroup?> FindById(int id, CancellationToken cancellationToken = default)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<IReadOnlyList<Device>> GetDevicesByGroupId(int id, CancellationToken cancellationToken = default)
+        public Task<IReadOnlyList<Device>> FindDevicesByGroupId(int id, CancellationToken cancellationToken = default)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task Update(ZigbeeGroup device, CancellationToken cancellationToken = default)
+        public Task<ZigbeeGroup> Update(ZigbeeGroup device, CancellationToken cancellationToken = default)
         {
             throw new System.NotImplementedException();
         }

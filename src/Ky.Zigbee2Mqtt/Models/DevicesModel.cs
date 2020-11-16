@@ -32,7 +32,7 @@
         public string? Model { get; set; }
 
         [JsonPropertyName("modelID")]
-        public string? ModelID { get; set; }
+        public string? ModelId { get; set; }
 
         [JsonPropertyName("friendly_name")]
         public string Name { get; set; } = string.Empty;

@@ -9,10 +9,10 @@
     {
         Task DeleteById(int id, CancellationToken cancellationToken = default);
 
-        Task<ZigbeeGroup> GetById(int id, CancellationToken cancellationToken = default);
+        Task<ZigbeeGroup?> FindById(int id, CancellationToken cancellationToken = default);
 
-        Task<IReadOnlyList<Device>> GetDevicesByGroupId(int id, CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<Device>> FindDevicesByGroupId(int id, CancellationToken cancellationToken = default);
 
-        Task Update(ZigbeeGroup device, CancellationToken cancellationToken = default);
+        Task<ZigbeeGroup> Update(ZigbeeGroup device, CancellationToken cancellationToken = default);
     }
 }

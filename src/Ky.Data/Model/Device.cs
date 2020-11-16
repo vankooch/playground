@@ -29,7 +29,7 @@
 
         public string? Model { get; set; }
 
-        public string? ModelID { get; set; }
+        public string? ModelId { get; set; }
 
         public string Name { get; set; } = string.Empty;
 
