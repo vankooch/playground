@@ -7,6 +7,8 @@
 
     public interface IDeviceRepository
     {
+        Task<Device> Add(Device device, CancellationToken cancellationToken = default);
+
         Task DeleteById(IReadOnlyList<string> deviceIds, CancellationToken cancellationToken = default);
 
         Task DeleteById(string deviceId, CancellationToken cancellationToken = default);

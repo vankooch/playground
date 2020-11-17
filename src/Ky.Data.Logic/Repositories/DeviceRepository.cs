@@ -19,6 +19,21 @@
             this._dataContext = dataContext;
         }
 
+        public async Task<Device> Add(Device device, CancellationToken cancellationToken = default)
+        {
+            if (device == null)
+            {
+                throw new ArgumentException(nameof(device));
+            }
+
+            _ = await this._dataContext
+                  .Devices
+                  .AddAsync(device, cancellationToken)
+                  .ConfigureAwait(false);
+
+            return device;
+        }
+
         public async Task DeleteById(IReadOnlyList<string> deviceIds, CancellationToken cancellationToken = default)
         {
             if (deviceIds == null || !deviceIds.Any())
@@ -29,6 +44,7 @@
             var local = deviceIds.Where(e => !string.IsNullOrWhiteSpace(e));
             var entry = await this._dataContext
                 .Devices
+                .AsNoTracking()
                 .Where(e => local.Contains(e.Id))
                 .ToArrayAsync(cancellationToken)
                 .ConfigureAwait(false);
@@ -48,6 +64,7 @@
 
             var entry = await this._dataContext
                 .Devices
+                .AsNoTracking()
                 .FirstAsync(e => e.Id == deviceId, cancellationToken)
                 .ConfigureAwait(false);
 
@@ -61,6 +78,7 @@
         {
             var db = await this._dataContext
                 .Devices
+                .AsNoTracking()
                 .ToArrayAsync(cancellationToken)
                 .ConfigureAwait(false);
 
@@ -76,6 +94,7 @@
 
             var entry = await this._dataContext
                 .Devices
+                .AsNoTracking()
                 .FirstAsync(e => e.Id == id, cancellationToken)
                 .ConfigureAwait(false);
 
@@ -93,6 +112,7 @@
             var entry = await this._dataContext
                 .Devices
                 .Where(e => local.Contains(e.Id))
+                .AsNoTracking()
                 .ToArrayAsync(cancellationToken)
                 .ConfigureAwait(false);
 
@@ -106,22 +126,8 @@
                 throw new ArgumentException(nameof(device));
             }
 
-            var entry = await this._dataContext
-                .Devices
-                .FirstAsync(e => e.Id == device.Id, cancellationToken)
-                .ConfigureAwait(false);
-
-            if (entry == null)
-            {
-                _ = await this._dataContext
-                    .Devices
-                    .AddAsync(device, cancellationToken)
-                    .ConfigureAwait(false);
-            }
-            else
-            {
-                // Do Update
-            }
+            this._dataContext.Devices.Attach(device);
+            this._dataContext.Entry(device).State = EntityState.Modified;
 
             await this._dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
